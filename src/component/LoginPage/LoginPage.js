@@ -1,87 +1,141 @@
-import logo from "../../images/logo.png";
-import mask from "../../images/mask.png";
-import Button from "../UI/Button";
-import facebookLogo from "../../images/facebookIcon.png";
-import instagramLogo from "../../images/instagramIcon.png";
-import twitterLogo from "../../images/twitterIcon.jpg";
-import mitsuri from "../../images/mitsuriImage.png";
+import { useState } from "react";
+import BackgroundChanger from "../UI/BackgroundChanger";
+import websiteLogo from "../../images/websiteLogo.png";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
+import { signin } from "../../utils/auth";
+import Modal from "../UI/modal";
 
-function LoginPage() {
+const handleRegistration = ({ email, password }) => {
+  signin({
+    email,
+    password,
+  })
+    .then((res) => {
+      
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+function LoginPage({ redirectToSignUp }) {
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!isValid) return;
+
+    handleRegistration({
+      email: values.email,
+      password: values.password,
+    });
+  };
+
   return (
-    <div className="text-black-900 bg-black flex justify-center">
-      <div className="p-10">
-        <div className="">
-          <div className="text-white flex items-center">
-            <img src={logo} alt="website logo" className="w-28 h-28" />
-            <div>
-              <h2 className="text-2xl font-['Special_Elite']">Demon Slayer</h2>
-              <p className="text-lg font-['Special_Elite']">kimetsu no yaiba</p>
-            </div>
-          </div>
+    <>
+      <BackgroundChanger>
+        <div className="bg-black/50 rounded-badge p-8 sm:mx-auto sm:w-full sm:max-w-sm">
+          <img
+            className="mx-auto h-30 w-auto"
+            src={websiteLogo}
+            alt="Your Company"
+          />
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
+            Sign in to your account
+          </h2>
         </div>
-        <div className="bg-black">
-          <img src={mask} alt="mask" className="mx-auto" />
-          <h3 className="text-white text-4xl font-['Poppins_Bold'] text-center">
-            ようこそ !
-          </h3>
-          <p className="text-white text-xl py-3 text-center">Welcome Back!</p>
-          <form className="flex flex-col gap-5">
-            <label>
-              <p className="text-white py-1">Email</p>
-              <input
-                type="email"
-                required
-                name="email"
-                className="bg-gray-600 w-[340px] py-2 rounded"
-              />
-            </label>
-            <label>
-              <p className="text-white py-1">Password</p>
-              <input
-                type="password"
-                required
-                name="password"
-                className="bg-gray-600 w-[340px] py-2 rounded"
-              />
-            </label>
-            <button className="text-[#3E1149] bg-[#E487FB] w-[260px] p-5 rounded-xl text-xl font-['Poppins_Bold'] mx-auto">
-              Login
-            </button>
-          </form>
-          <div className="flex items-center justify-center">
-            <div className="flex-1 h-[1px] bg-white mx-2"></div>
-            <span className="text-white py-3">Don't have an account?</span>
-            <div className="flex-1 h-[1px] bg-white mx-2"></div>
-          </div>
-        </div>
-        <div className="flex justify-center">
-          <button className="text-[#3E1149] bg-[#E487FB] w-[260px] p-5 rounded-xl text-xl font-['Poppins_Bold']">
-            Sign Up
-          </button>
-        </div>
-        <div className="flex items-center gap-12 pt-8">
-          <a href="https://www.facebook.com">
-            <img src={facebookLogo} className="w-16" />
-          </a>
-          <a href="https://www.instagram.com">
-            <img src={instagramLogo} className="w-16" />
-          </a>
-          <a href="https://www.twitter.com">
-            <img src={twitterLogo} className="w-16" />
-          </a>
-        </div>
-      </div>
-      <div className="bg-[#3E1149]">
-        <div>
-          <img className="w-[670px]" src={mitsuri} />
 
-          <h2 className="text-white text-5xl font-bold">Mitsuri K.</h2>
-          <p className="text-white text-xl pl-5">
-            "My heart would never flutter for those who needlessly hurt others!"
+        <div className="bg-black/50 rounded-badge p-10 mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div>
+              <label
+                htmlFor="email"
+                className="block  font-medium leading-6 text-white"
+              >
+                Email
+              </label>
+              <div className="mt-2">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={values.email || ""}
+                  onChange={handleChange}
+                  className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                />
+                {errors.email && (
+                  <span className="text-red-500">{errors.email}</span>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="password"
+                  className="block  font-medium leading-6 text-white"
+                >
+                  Password
+                </label>
+                <div className="text-sm">
+                  <a
+                    href="#"
+                    className="font-semibold text-indigo-400 duration-150 hover:text-indigo-300"
+                  >
+                    Forgot password?
+                  </a>
+                </div>
+              </div>
+              <div className="mt-2">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  minLength="5"
+                  maxLength="12"
+                  autoComplete="current-password"
+                  required
+                  value={values.password || ""}
+                  onChange={handleChange}
+                  className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                />
+                {errors.password && (
+                  <span className="text-red-500 bg-white">
+                    {errors.password}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md duration-200 bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+              >
+                Sign in
+              </button>
+            </div>
+          </form>
+
+          <p className="mt-10 text-center text-sm text-gray-400">
+            Not a member?{" "}
+            <button
+              type="button"
+              onClick={() => {
+                redirectToSignUp();
+              }}
+              className="font-semibold leading-6 text-indigo-400 hover:text-indigo-300"
+            >
+              Register
+            </button>
           </p>
         </div>
-      </div>
-    </div>
+      </BackgroundChanger>
+    </>
   );
 }
 

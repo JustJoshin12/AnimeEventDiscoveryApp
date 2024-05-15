@@ -1,88 +1,269 @@
-import logo from "../../images/logo.png";
-import mask from "../../images/mask.png";
-import Button from "../UI/Button";
-import facebookLogo from "../../images/facebookIcon.png";
-import instagramLogo from "../../images/instagramIcon.png";
-import twitterLogo from "../../images/twitterIcon.jpg";
-import mitsuri from "../../images/mitsuriImage.png";
+import { useEffect, useState } from "react";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
+import { register } from "../../utils/auth";
+import image from "../../images/scene.gif";
+import avatarIconList from "../../utils/avatarList";
+import Modal from "../UI/modal";
 
-function SignupPage() {
+const SignupPage = ({ redirectToLogin, open, setOpen }) => {
+
+ const createTime = new Date();
+
+ console.log(createTime);
+
+
+  const handleRegistration = ({
+    firstName,
+    lastName,
+    userName,
+    password,
+    email,
+    avatar,
+    dob,
+    createTime
+  }) => {
+    register({
+      firstName: firstName,
+      lastName: lastName,
+      userName: userName,
+      password: password,
+      email: email,
+      avatar: avatar,
+      dob: dob,
+      createTime: createTime
+    })
+      .then((res) => {
+        setOpen(true)
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const toggleDropdown = () => setIsOpen(!isOpen);
+  const [selectedAvatar, setSelectedAvatar] = useState(avatarIconList[0]);
+  const [isOpen, setIsOpen] = useState(false);
+  const {
+    values,
+    handleChange,
+    resetForm,
+    resetFile,
+    setResetFile,
+    isValid,
+    errors,
+  } = useFormAndValidation();
+
+  const handleSelectAvatar = (avatar) => {
+    setSelectedAvatar(avatar);
+    setIsOpen(false);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!isValid) return;
+
+    handleRegistration({
+      firstName: values.firstName,
+      lastName: values.lastName,
+      userName: values.userName,
+      password: values.password,
+      email: values.email,
+      avatar: selectedAvatar.name,
+      dob: values.dob,
+      createTime:createTime
+    });
+
+    resetForm();
+  };
+
   return (
-    <div className="text-black-900 bg-black flex justify-center">
-      <div className="p-10">
-        <div className="">
-          <div className="text-white flex items-center">
-            <img src={logo} alt="website logo" className="w-28 h-28" />
-            <div>
-              <h2 className="text-2xl font-['Special_Elite']">Demon Slayer</h2>
-              <p className="text-lg font-['Special_Elite']">kimetsu no yaiba</p>
+    <>
+      <div
+        className="flex justify-center items-center min-h-screen bg-cover bg-no-repeat"
+        style={{ backgroundImage: `url(${image})` }}
+      >
+        <div className="font-black w-full max-w-4xl backdrop-opacity-10 backdrop-invert bg-white/30 p-10 rounded-lg shadow-lg">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-6 text-lg font-black"
+          >
+            <h3 className="text-center text-2xl uppercase font-bold tracking-wider text-gray-800">
+              Registration
+            </h3>
+            <div className="flex gap-5">
+              <div className="flex-1">
+                <label htmlFor="firstName" className="block mb-2">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  minLength="3"
+                  maxLength="8"
+                  required
+                  value={values.firstName || ""}
+                  onChange={handleChange}
+                  className="form-input w-full px-4 py-2 border rounded-full"
+                />
+                {errors.firstName && (
+                  <span className="text-red-500">{errors.firstName}</span>
+                )}
+              </div>
+              <div className="flex-1">
+                <label htmlFor="lastName" className="block mb-2">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  minLength="3"
+                  maxLength="8"
+                  required
+                  name="lastName"
+                  value={values.lastName || ""}
+                  onChange={handleChange}
+                  className="form-input w-full px-4 py-2 border rounded-full"
+                />
+                {errors.lastName && (
+                  <span className="text-red-500">{errors.lastName}</span>
+                )}
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="bg-black">
-          <img src={mask} alt="mask" className="mx-auto" />
-          <h3 className="text-white text-4xl font-['Poppins_Bold'] text-center">
-            ようこそ !
-          </h3>
-          <p className="text-white text-xl py-3 text-center">Welcome Back!</p>
-          <form className="flex flex-col gap-5">
-            <label>
-              <p className="text-white py-1">Email</p>
+            <div className="flex gap-5">
+              <div className="flex-1">
+                <label htmlFor="userName" className="block mb-2">
+                  User Name
+                </label>
+                <input
+                  type="text"
+                  id="userName"
+                  name="userName"
+                  minLength="4"
+                  maxLength="15"
+                  required
+                  value={values.userName || ""}
+                  onChange={handleChange}
+                  className="form-input w-full px-4 py-2 border rounded-full"
+                />
+              </div>
+              <div className="flex-1">
+                <label htmlFor="email" className="block mb-2">
+                  Email
+                </label>
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  required
+                  value={values.email || ""}
+                  onChange={handleChange}
+                  className="form-input w-full px-4 py-2 border rounded-full"
+                />
+              </div>
+            </div>
+            <div>
+              <p className="pb-2">Avatar</p>
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={toggleDropdown}
+                  className="flex items-center bg-white border border-gray-300 rounded-full py-2 px-4 w-full text-left"
+                >
+                  <img
+                    src={selectedAvatar.imageUrl || ""}
+                    alt="Selected Avatar"
+                    className="w-8 h-8 rounded-full mr-2"
+                  />
+                  <span>{selectedAvatar.name}</span>
+                  <svg
+                    className="ml-auto h-5 w-5 text-gray-500"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                {isOpen && (
+                  <div className="absolute mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg">
+                    <ul className="max-h-60 overflow-auto">
+                      {avatarIconList.map((avatar) => (
+                        <li
+                          key={avatar.id}
+                          className="flex items-center py-2 px-4 duration-150 hover:bg-gray-300 cursor-pointer"
+                          onClick={() => handleSelectAvatar(avatar)}
+                        >
+                          <img
+                            src={avatar.imageUrl}
+                            alt={avatar.name}
+                            className="w-12 h-12 rounded-full mr-2"
+                          />
+                          <span>{avatar.name}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div>
+              <label htmlFor="dob" className="block mb-2">
+                Date of birth
+              </label>
               <input
-                type="email"
-                required
-                name="email"
-                className="bg-gray-600 w-[340px] py-2 rounded"
+                type="date"
+                name="dob"
+                id="dob"
+                value={values.dob || ""}
+                onChange={handleChange}
+                className="form-input w-full px-4 py-2 border rounded-full"
               />
-            </label>
-            <label>
-              <p className="text-white py-1">Password</p>
+            </div>
+            <div>
+              <label htmlFor="password" className="block mb-2">
+                Password
+              </label>
               <input
-                type="password"
-                required
+                id="password"
                 name="password"
-                className="bg-gray-600 w-[340px] py-2 rounded"
+                type="password"
+                minLength="5"
+                maxLength="12"
+                autoComplete="current-password"
+                required
+                value={values.password || ""}
+                onChange={handleChange}
+                className="form-input w-full px-4 py-2 border rounded-full"
               />
-            </label>
-            <button className="text-[#3E1149] bg-[#E487FB] w-[260px] p-5 rounded-xl text-xl font-['Poppins_Bold'] mx-auto">
-              Login
+            </div>
+
+            <div className="flex items-center">
+              <p className="text-lg pr-3">Have an account?</p>
+              <button
+                onClick={() => {
+                  redirectToLogin();
+                }}
+                className="rounded-md duration-200 bg-red-700 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Sign In
+              </button>
+            </div>
+            <button
+              type="submit"
+              className="mx-auto block bg-red-700 hover:bg-red-800 focus:bg-red-800 text-white uppercase text-sm px-6 py-2 rounded-full transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+            >
+              Register Now
             </button>
           </form>
-          <div className="flex items-center justify-center">
-            <div className="flex-1 h-[1px] bg-white mx-2"></div>
-            <span className="text-white py-3">Don't have an account?</span>
-            <div className="flex-1 h-[1px] bg-white mx-2"></div>
-          </div>
-        </div>
-        <div className="flex justify-center">
-          <button className="text-[#3E1149] bg-[#E487FB] w-[260px] p-5 rounded-xl text-xl font-['Poppins_Bold']">
-            Sign Up
-          </button>
-        </div>
-        <div className="flex items-center gap-12 pt-8">
-          <a href="https://www.facebook.com">
-            <img src={facebookLogo} className="w-16" />
-          </a>
-          <a href="https://www.instagram.com">
-            <img src={instagramLogo} className="w-16" />
-          </a>
-          <a href="https://www.twitter.com">
-            <img src={twitterLogo} className="w-16" />
-          </a>
         </div>
       </div>
-      <div className="bg-[#3E1149]">
-        <div>
-          <img className="w-[670px]" src={mitsuri} />
-
-          <h2 className="text-white text-5xl font-bold">Mitsuri K.</h2>
-          <p className="text-white text-xl pl-5">
-            "My heart would never flutter for those who needlessly hurt others!"
-          </p>
-        </div>
-      </div>
-    </div>
+    </>
   );
-}
+};
 
 export default SignupPage;
