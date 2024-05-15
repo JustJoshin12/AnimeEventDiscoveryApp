@@ -13,6 +13,7 @@ module.exports = {
   },
   plugins: [
     require('daisyui'),
-    require('autoprefixer')
+    require('autoprefixer'),
+    require('@tailwindcss/forms')
   ],
 }
