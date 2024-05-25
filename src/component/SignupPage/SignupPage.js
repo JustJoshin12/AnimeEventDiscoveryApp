@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import { register } from "../../utils/auth";
+import { motion } from "framer-motion";
 import image from "../../images/scene.gif";
 import avatarIconList from "../../utils/avatarList";
-import Modal from "../UI/modal";
+import DialogPopUp from "../UI/DialogPopUp";
 
-const SignupPage = ({ redirectToLogin, open, setOpen }) => {
-
- const createTime = new Date();
-
- console.log(createTime);
-
+const SignupPage = ({ redirectToLogin }) => {
+  const createTime = new Date();
+  const [open, setOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [selectedAvatar, setSelectedAvatar] = useState(avatarIconList[0]);
+  const [isOpen, setIsOpen] = useState(false);
+  const { values, handleChange, resetForm, isValid, errors } =
+    useFormAndValidation();
 
   const handleRegistration = ({
     firstName,
@@ -20,38 +24,32 @@ const SignupPage = ({ redirectToLogin, open, setOpen }) => {
     email,
     avatar,
     dob,
-    createTime
+    createTime,
   }) => {
     register({
-      firstName: firstName,
-      lastName: lastName,
-      userName: userName,
-      password: password,
-      email: email,
-      avatar: avatar,
-      dob: dob,
-      createTime: createTime
+      firstName,
+      lastName,
+      userName,
+      password,
+      email,
+      avatar,
+      dob,
+      createTime,
     })
       .then((res) => {
-        setOpen(true)
+        console.log(res);
+        setIsError(false);
+        setOpen(true);
       })
       .catch((err) => {
         console.error(err);
+        setErrorMessage("Failed to register. Duplicate email");
+        setIsError(false);
+        setOpen(true);
       });
   };
 
   const toggleDropdown = () => setIsOpen(!isOpen);
-  const [selectedAvatar, setSelectedAvatar] = useState(avatarIconList[0]);
-  const [isOpen, setIsOpen] = useState(false);
-  const {
-    values,
-    handleChange,
-    resetForm,
-    resetFile,
-    setResetFile,
-    isValid,
-    errors,
-  } = useFormAndValidation();
 
   const handleSelectAvatar = (avatar) => {
     setSelectedAvatar(avatar);
@@ -71,9 +69,8 @@ const SignupPage = ({ redirectToLogin, open, setOpen }) => {
       email: values.email,
       avatar: selectedAvatar.name,
       dob: values.dob,
-      createTime:createTime
+      createTime: createTime,
     });
-
     resetForm();
   };
 
@@ -83,15 +80,24 @@ const SignupPage = ({ redirectToLogin, open, setOpen }) => {
         className="flex justify-center items-center min-h-screen bg-cover bg-no-repeat"
         style={{ backgroundImage: `url(${image})` }}
       >
-        <div className="font-black w-full max-w-4xl backdrop-opacity-10 backdrop-invert bg-white/30 p-10 rounded-lg shadow-lg">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.3 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 1,
+            delay: 0.3,
+            ease: [0, 0.71, 0.2, 1.01],
+          }}
+          className="font-black w-full max-w-4xl backdrop-opacity-10 backdrop-invert bg-white/30 p-5 m-5 rounded-lg shadow-lg md:p-10"
+        >
           <form
             onSubmit={handleSubmit}
-            className="space-y-6 text-lg font-black"
+            className="space-y-6 text-sm md:text-lg font-black text-black"
           >
-            <h3 className="text-center text-2xl uppercase font-bold tracking-wider text-gray-800">
+            <h3 className="text-center text-lg md:text-2xl uppercase font-bold tracking-wider">
               Registration
             </h3>
-            <div className="flex gap-5">
+            <div className="flex gap-5 ">
               <div className="flex-1">
                 <label htmlFor="firstName" className="block mb-2">
                   First Name
@@ -107,9 +113,7 @@ const SignupPage = ({ redirectToLogin, open, setOpen }) => {
                   onChange={handleChange}
                   className="form-input w-full px-4 py-2 border rounded-full"
                 />
-                {errors.firstName && (
-                  <span className="text-red-500">{errors.firstName}</span>
-                )}
+               
               </div>
               <div className="flex-1">
                 <label htmlFor="lastName" className="block mb-2">
@@ -126,9 +130,7 @@ const SignupPage = ({ redirectToLogin, open, setOpen }) => {
                   onChange={handleChange}
                   className="form-input w-full px-4 py-2 border rounded-full"
                 />
-                {errors.lastName && (
-                  <span className="text-red-500">{errors.lastName}</span>
-                )}
+               
               </div>
             </div>
             <div className="flex gap-5">
@@ -242,13 +244,13 @@ const SignupPage = ({ redirectToLogin, open, setOpen }) => {
               />
             </div>
 
-            <div className="flex items-center">
-              <p className="text-lg pr-3">Have an account?</p>
+            <div className="flex items-center gap-5">
+              <p className="text-sm lg:text-lg pr-3">Have an account?</p>
               <button
                 onClick={() => {
                   redirectToLogin();
                 }}
-                className="rounded-md duration-200 bg-red-700 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="rounded-md duration-200 bg-red-700 px-2 py-1 md:px-2.5 md:py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign In
               </button>
@@ -260,8 +262,28 @@ const SignupPage = ({ redirectToLogin, open, setOpen }) => {
               Register Now
             </button>
           </form>
-        </div>
+        </motion.div>
       </div>
+      <DialogPopUp
+        open={open}
+        setOpen={setOpen}
+        onClick={() => {
+          setOpen(false);
+          if (isError) {
+            setOpen(false);
+            return;
+          }
+          redirectToLogin();
+        }}
+        title={isError ? "Registration Failed" : "Registration Successful"}
+        description={
+          isError
+            ? errorMessage
+            : "You have successfully registered. Welcome aboard!"
+        }
+        buttonText={isError ? "Try Again" : "Login"}
+        isError={isError}
+      />
     </>
   );
 };

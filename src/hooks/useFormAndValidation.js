@@ -41,7 +41,6 @@ export function useFormAndValidation() {
       setValues(newValues);
       setErrors(newErrors);
       setIsValid(newIsValid);
-      // Indicate that the file input should be reset
       setResetFile(true);
     },
     [setValues, setErrors, setIsValid]

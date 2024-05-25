@@ -1,6 +1,6 @@
 import { checkResponse } from "./api";
 
-const baseUrl = "https://8eb4-67-165-141-227.ngrok-free.app";
+const baseUrl = "http://localhost:8888";
 
 export const signin = ({ email, password }) => {
   return fetch(`${baseUrl}/readUserAccount`, {
@@ -22,7 +22,7 @@ export const register = ({
   email,
   avatar,
   dob,
-  createTime
+  createTime,
 }) => {
   return fetch(`${baseUrl}/createUserAccount`, {
     method: "POST",

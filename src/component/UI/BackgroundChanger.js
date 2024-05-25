@@ -12,7 +12,7 @@ function BackgroundChanger({ children }) {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentImage((currentImage) => (currentImage + 1) % images.length);
-    }, 4000); // change image every 4 seconds
+    }, 4000);
 
     return () => clearInterval(intervalId);
   }, []);
