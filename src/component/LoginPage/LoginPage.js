@@ -6,27 +6,28 @@ import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import { signin } from "../../utils/auth";
 import DialogPopUp from "../UI/DialogPopUp";
 
-const handleRegistration = ({ email, password }) => {
-  signin({
-    email,
-    password,
-  })
-    .then((res) => {
-      console.log(res);
-      loading();
-    })
-    .catch((err) => {
-      console.error(err);
-      setErrorMessage("Failed to login. Incorrect email or password");
-      setIsError(true);
-      setOpen(true);
-    });
-};
 
 function LoginPage({ redirectToSignUp, loading }) {
   const [open, setOpen] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  
+  const handleRegistration = ({ email, password }) => {
+    signin({
+      email,
+      password,
+    })
+      .then((res) => {
+        console.log(res);
+        loading();
+      })
+      .catch((err) => {
+        console.error(err);
+        setErrorMessage("Failed to login. Incorrect email or password");
+        setIsError(true);
+        setOpen(true);
+      });
+  };
 
   const { values, handleChange, errors, isValid, resetForm } =
     useFormAndValidation();
