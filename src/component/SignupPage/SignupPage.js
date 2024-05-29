@@ -92,7 +92,7 @@ const SignupPage = ({ redirectToLogin }) => {
         >
           <form
             onSubmit={handleSubmit}
-            className="space-y-6 text-sm md:text-lg font-black text-black"
+            className="space-y-3 md:space-y-6 text-sm md:text-lg font-black text-black"
           >
             <h3 className="text-center text-lg md:text-2xl uppercase font-bold tracking-wider">
               Registration
@@ -192,7 +192,7 @@ const SignupPage = ({ redirectToLogin }) => {
                   </svg>
                 </button>
                 {isOpen && (
-                  <div className="absolute mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg">
+                  <div className="absolute mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg z-20">
                     <ul className="max-h-60 overflow-auto">
                       {avatarIconList.map((avatar) => (
                         <li
@@ -257,7 +257,7 @@ const SignupPage = ({ redirectToLogin }) => {
             </div>
             <button
               type="submit"
-              className="mx-auto block bg-red-700 hover:bg-red-800 focus:bg-red-800 text-white uppercase text-sm px-6 py-2 rounded-full transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+              className="text-xs mx-auto block bg-red-700 hover:bg-red-800 focus:bg-red-800 text-white uppercase px-6 py-2 rounded-full transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 md:text-sm"
             >
               Register Now
             </button>

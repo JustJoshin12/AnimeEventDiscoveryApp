@@ -11,7 +11,7 @@ function LoginPage({ redirectToSignUp, loading }) {
   const [open, setOpen] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  
+
   const handleRegistration = ({ email, password }) => {
     signin({
       email,
@@ -56,14 +56,14 @@ function LoginPage({ redirectToSignUp, loading }) {
               delay: 0.4,
               ease: [0, 0.71, 0.2, 1.01],
             }}
-            className="bg-black/50 rounded-badge p-8 sm:mx-auto sm:w-full sm:max-w-sm"
+            className="bg-black/50 rounded-badge p-4 md:p-8 sm:mx-auto sm:w-full sm:max-w-sm"
           >
             <img
-              className="mx-auto h-30 w-auto"
+              className="mx-auto w-auto h-40 md:h-44 xl:h-auto"
               src={websiteLogo}
               alt="Your Company"
             />
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
+            <h2 className=" mt-4 md:mt-10 text-center text-lg lg:text-2xl font-bold leading-9 tracking-tight text-white">
               Sign in to your account
             </h2>
           </motion.div>
@@ -111,7 +111,7 @@ function LoginPage({ redirectToSignUp, loading }) {
                   <div className="text-sm">
                     <a
                       href="#"
-                      className="font-semibold text-indigo-400 duration-150 hover:text-indigo-300"
+                      className=" text-xs md:text-sm font-semibold text-indigo-400 duration-150 hover:text-indigo-300"
                     >
                       Forgot password?
                     </a>
@@ -137,14 +137,14 @@ function LoginPage({ redirectToSignUp, loading }) {
                 <button
                   type="submit"
                   disabled={false}
-                  className="flex w-full justify-center rounded-md duration-200 bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                  className="flex w-full justify-center rounded-md duration-200 bg-indigo-500 px-2 md:px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                 >
                   Sign in
                 </button>
               </div>
             </form>
 
-            <p className="mt-10 text-center text-sm text-gray-400">
+            <p className="mt-5 md:mt-10 text-center text-sm text-gray-400">
               Not a member?{" "}
               <button
                 type="button"
