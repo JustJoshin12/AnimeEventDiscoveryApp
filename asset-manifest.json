@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/JustJoshin12/AnimeEventDiscoveryApp/static/css/main.b51a014d.css",
+    "main.js": "/JustJoshin12/AnimeEventDiscoveryApp/static/js/main.403a25fa.js",
+    "static/js/787.82d18ce0.chunk.js": "/JustJoshin12/AnimeEventDiscoveryApp/static/js/787.82d18ce0.chunk.js",
+    "static/media/tanjiro.gif": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/tanjiro.4f90b85f9d24337573af.gif",
+    "static/media/rengoku.gif": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/rengoku.381414fe8f001a918266.gif",
+    "static/media/scene.gif": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/scene.9ae901e81d72a99336c8.gif",
+    "static/media/luffy.gif": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/luffy.240618a9a1e7068ca2d1.gif",
+    "static/media/rengoku.png": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/rengoku.4b3ed1c3ddf73d8460a3.png",
+    "static/media/animegirl.webp": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/animegirl.b926015427eda6a9e3c4.webp",
+    "static/media/loading.gif": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/loading.c2bdfad920c1550f4e3f.gif",
+    "static/media/karma.gif": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/karma.8c474099f80d8fbb40af.gif",
+    "static/media/megumi.gif": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/megumi.775d7285e2b783039494.gif",
+    "static/media/toji.webp": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/toji.cf85c886cbbe36a96c06.webp",
+    "static/media/muzan.gif": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/muzan.77d82b883c080e1d0b91.gif",
+    "static/media/ichigo.gif": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/ichigo.0c7b157fae6c2864c13b.gif",
+    "static/media/websiteLogo.png": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/websiteLogo.7f0aa6cdf9ff9f5365fb.png",
+    "static/media/byakuya.gif": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/byakuya.947d87e6dd936c1df4df.gif",
+    "static/media/animeScene.jpg": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/animeScene.03895448f0effe28e73b.jpg",
+    "static/media/sasuke.gif": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/sasuke.b17b1c348851b529f449.gif",
+    "static/media/naruto.gif": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/naruto.a3fd889fd11c8fc27495.gif",
+    "static/media/anime2.jpg": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/anime2.6e7fcdb33e47097094cf.jpg",
+    "static/media/Poppins-BoldItalic.ttf": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/Poppins-BoldItalic.cfb635a5111b545f5598.ttf",
+    "static/media/Poppins-Bold.ttf": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/Poppins-Bold.cdb29a5d7ccf57ff05a3.ttf",
+    "static/media/SpecialElite-Regular.ttf": "/JustJoshin12/AnimeEventDiscoveryApp/static/media/SpecialElite-Regular.cefed1373df28714f8e5.ttf",
+    "index.html": "/JustJoshin12/AnimeEventDiscoveryApp/index.html",
+    "main.b51a014d.css.map": "/JustJoshin12/AnimeEventDiscoveryApp/static/css/main.b51a014d.css.map",
+    "main.403a25fa.js.map": "/JustJoshin12/AnimeEventDiscoveryApp/static/js/main.403a25fa.js.map",
+    "787.82d18ce0.chunk.js.map": "/JustJoshin12/AnimeEventDiscoveryApp/static/js/787.82d18ce0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b51a014d.css",
+    "static/js/main.403a25fa.js"
+  ]
+}
