@@ -4,6 +4,7 @@ import SignupPage from "../SignupPage/SignupPage";
 import DialogPopUp from "../UI/DialogPopUp";
 import Error404Page from "../UI/404page";
 import LoadingScreen from "../UI/LoadingScreen";
+import Home from "../HomePage/HomePage";
 
 function App() {
   const [page, setPage] = useState("Login");
@@ -22,12 +23,15 @@ function App() {
   };
 
   const ShowLoading = () => {
-    setPage("Loading")
-  }
-
+    setPage("Loading");
+    setTimeout(() => {
+        redirectToHome();
+    }, 8000);
+};
   return (
     <div className="">
       {page === "Login" && <LoginPage redirectToSignUp={redirectToSignUp} loading={ShowLoading} />}
+      {page === "Home" && <Home redirectToLogin={redirectToLogin}/>}
       {page === "ErrorPage" && <Error404Page/>}
       {page === "Loading" &&<LoadingScreen/>}
       {page === "SignUp" && <SignupPage redirectToLogin={redirectToLogin} open={open} setOpen={setOpen}/>}
