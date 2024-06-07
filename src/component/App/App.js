@@ -7,7 +7,7 @@ import LoadingScreen from "../UI/LoadingScreen";
 import Home from "../HomePage/HomePage";
 
 function App() {
-  const [page, setPage] = useState("Login");
+  const [page, setPage] = useState("Home");
   const [open, setOpen] = useState(false);
 
   const redirectToSignUp = () => {

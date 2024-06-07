@@ -1,5 +1,6 @@
 import image from "../../images/animeScene.jpg";
 import { VanishText } from "../UI/VanishingText";
+import Button from "../UI/Button";
 
 function Home() {
   return (
@@ -10,7 +11,7 @@ function Home() {
       <div className="pt-20">
         <VanishText />
       </div>
-      <button>Back to Login</button>
+      <Button >Back to Login</Button>
     </div>
   );
 }
