@@ -1,32 +1,28 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import LoadingImage from "../../images/loading.gif";
 
 const LoadingScreen = () => {
   return (
-    <motion.div
-    style={{ height: "100vh", position: "relative", overflow: "hidden" }}
-      initial={{ opacity: 0, scale: 0.5, rotate: -100, x: "-100vw" }}
-      animate={{
-        opacity: 1,
-        scale: 1,
-        rotate: 0,
-        x: 0,
-        transition: { duration: 1.5, ease: "easeInOut" },
-      }}
-      exit={{
-        opacity: 0,
-        scale: 0.5,
-        rotate: 180,
-        x: "100vw",
-        transition: { duration: 1.2, ease: "easeInOut" },
-      }}
-    >
-      <CutoutTextLoader
-        height="100%"
-        background="white"
-        imgUrl={LoadingImage}
-      />
-    </motion.div>
+    <AnimatePresence>
+      <motion.div
+       style={{ height: "100vh", position: "relative", overflow: "hidden" }}
+       initial={{ opacity: 0, scale: 0.8, y: 50 }}
+       animate={{
+         opacity: 1,
+         scale: 1,
+         y: 0,
+         transition: { duration: 1.5, ease: "easeInOut" },
+       }}
+       exit={{
+         opacity: 0,
+         scale: 0.8,
+         y: -50,
+         transition: { duration: 1.2, ease: "easeInOut" },
+       }}
+      >
+        <CutoutTextLoader height="100%" background="white" imgUrl={LoadingImage} />
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

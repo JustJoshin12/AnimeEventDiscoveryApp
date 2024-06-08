@@ -1,7 +1,8 @@
 import image from "../../images/animeScene.jpg";
 import { VanishText } from "../UI/VanishingText";
+import Button from "../UI/Button";
 
-function Home() {
+function Home({redirectToLogin}) {
   return (
     <div
       className="min-h-screen bg-cover bg-no-repeat"
@@ -10,7 +11,7 @@ function Home() {
       <div className="pt-20">
         <VanishText />
       </div>
-      <button>Back to Login</button>
+      <Button redirectToLogin={redirectToLogin}/>
     </div>
   );
 }
